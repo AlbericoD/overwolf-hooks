@@ -1,5 +1,5 @@
 <h1 align="center">
-  Custom Hooks
+  Overwolf Hooks
 </h1>
 <p align="center">
 there are some custom hooks to help use overwolf api with the new react hooks technology.
