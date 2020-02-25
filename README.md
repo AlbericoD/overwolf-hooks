@@ -2,7 +2,7 @@
   Overwolf Hooks
 </h1>
 <p align="center">
-there are some custom hooks to help use overwolf api with the new react hooks technology.
+Custom hooks to help use overwolf api with the new react hooks technology.
 </p>
 
 [![NPM](https://img.shields.io/npm/v/overwolf-hooks.svg)](https://www.npmjs.com/package/overwolf-hooks) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
