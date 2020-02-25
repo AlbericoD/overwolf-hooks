@@ -1,7 +1,7 @@
 {
   "name": "overwolf-hooks",
   "version": "1.0.0",
-  "description": "wrapper common overwolf methods",
+  "description": "custom hooks to help use overwolf api with the new react hooks technology.",
   "author": "AlbericoD",
   "license": "MIT",
   "repository": "AlbericoD/overwolf-hooks",

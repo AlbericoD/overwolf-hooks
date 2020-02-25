@@ -1,5 +1,27 @@
-/* body {
+body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
-} */
+}
+.container {
+  background: black;
+  height: 70vh;
+  max-height: 70vh;
+  overflow: scroll;
+  border: 1px solid grey;
+}
+h1 {
+  color: white;
+}
+p {
+  background: grey;
+  color: white;
+  font-size: 16px;
+}
+button {
+  width: 150px;
+  height: 30px;
+  background: black;
+  color: white;
+  font-size: 18px;
+}
