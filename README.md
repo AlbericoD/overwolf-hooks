@@ -15,8 +15,8 @@ npm install --save overwolf-hooks
 
 ## How to use
 
-If you are not familiar with Overwolf [overwolf api](https://overwolf.github.io/)
-If you are not familiar with React hooks, take a look at [the documentation](https://reactjs.org/docs/hooks-intro.html)
+- If you are not familiar with Overwolf [overwolf api](https://overwolf.github.io/)
+- If you are not familiar with React hooks, take a look at [the documentation](https://reactjs.org/docs/hooks-intro.html)
 
 ### Hooks
 
