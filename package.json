@@ -23,26 +23,27 @@
   },
   "dependencies": {},
   "peerDependencies": {
-    "react": "^16.9.0"
+    "react": "^17.0.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/runtime": "^7.3.1",
-    "@testing-library/react-hooks": "^3.2.1",
-    "@types/jest": "^23.3.13",
-    "@types/react": "^16.7.22",
-    "cross-env": "^5.2.0",
-    "gh-pages": "^2.0.1",
-    "react": "^16.9.0",
-    "react-scripts": "^3.0.1",
-    "react-test-renderer": "^16.9.0",
-    "rollup": "^1.1.2",
-    "rollup-plugin-babel": "^4.3.2",
+    "@babel/core": "^7.15.5",
+    "@babel/runtime": "^7.15.4",
+    "@overwolf/types": "^3.12.0",
+    "@testing-library/react-hooks": "^7.0.2",
+    "@types/jest": "^27.0.1",
+    "@types/react": "^17.0.20",
+    "cross-env": "^7.0.3",
+    "gh-pages": "^3.2.3",
+    "react": "^16.14.0",
+    "react-scripts": "^4.0.3",
+    "react-test-renderer": "^17.0.2",
+    "rollup": "^2.56.3",
+    "rollup-plugin-babel": "^4.4.0",
     "rollup-plugin-commonjs": "^9.2.0",
     "rollup-plugin-node-resolve": "^4.0.0",
-    "rollup-plugin-peer-deps-external": "^2.2.0",
-    "rollup-plugin-typescript2": "^0.19.2",
+    "rollup-plugin-peer-deps-external": "^2.2.4",
+    "rollup-plugin-typescript2": "^0.30.0",
     "rollup-plugin-url": "^2.1.0",
-    "typescript": "^3.2.4"
+    "typescript": "^4.4.2"
   }
 }
