@@ -20,55 +20,65 @@ npm install --save overwolf-hooks
 
 ### Hooks
 
-1. **useWindow.ts**
+1. **useWindow.tsx**
 
 ```TSX
-import React from "react";
 import { useWindow } from 'overwolf-hooks'
 
-const Panel:FC = ()=>{
+const Panel = () => {
+
 const [desktopWindow] = useWindow("desktop");
 
-return <>
-          <p>Desktop Window</p>
-          <button onClick={()=> desktopWindow?.minimize()}>Minimize</button>
-          <button onClick={()=> desktopWindow?.restore()}>Restore</button>
-          <button onClick={()=> desktopWindow?.maximize()}>Maximize</button>
-          <button onClick={()=> desktopWindow?.close()}>Close</button>
-        </>
+return (
+    <div>
+      <h1>Desktop Window</h1>
+      <button onClick={()=> desktopWindow?.minimize()}>Minimize</button>
+      <button onClick={()=> desktopWindow?.restore()}>Restore</button>
+      <button onClick={()=> desktopWindow?.maximize()}>Maximize</button>
+      <button onClick={()=> desktopWindow?.close()}>Close</button>
+    </div>
+  )
 }
 ```
 
-2. **useDrag.ts**
+2. **useDrag.tsx**
 
 ```TSX
-import React,{ useCallback } from "react";
+import { useEffect, useCallback } from "react";
 import { useDrag, useWindow } from 'overwolf-hooks'
 
-const Header:FC = ()=>{
+const Header = () => {
+
 const [desktopWindow] = useWindow("desktop");
 const { onDragStart, onMouseMove, setCurrentWindowID } = useDrag(null);
 
 const updateDragWindow = useCallback(() => {
   if (desktopWindow?.id) setCurrentWindowID(desktopWindow.id);
-}, [desktopWindow]);
+}, [desktopWindow, setCurrentWindowID]);
 
-return <header onMouseDown={event => onDragStart(event)} onMouseMove={event => onMouseMove(event)}>
-          Header Text
-        </header>
+useEffect(updateDragWindow, [updateDragWindow])
+
+return (
+    <header
+      onMouseDown={event => onDragStart(event)}
+      onMouseMove={event => onMouseMove(event)}>
+        Header Text
+    </header>
+  )
 }
 ```
 
-3. **useGameEventProvider.ts**
+3. **useGameEventProvider.tsx**
 
 ```TSX
-import React,{ useEffect } from "react";
+import { useEffect } from "react";
 import { useGameEventProvider } from 'overwolf-hooks'
 
-const Overlay:FC = ()=>{
+const Overlay = () => {
+
 const [{ event, info }, setGameFeatures] = useGameEventProvider<
-    GameExample.Info,
-    GameExample.Event
+    GameExample.Info, //change with your GAME INTERFACE <OPTIONAL>
+    GameExample.Event //change with your GAME INTERFACE <OPTIONAL>
   >();
 
   useEffect(() => {
@@ -84,13 +94,14 @@ return <p>Overlay Window</p>
 }
 ```
 
-4. **useRunningGame.ts**
+4. **useRunningGame.tsx**
 
 ```TSX
-import React,{ useEffect } from "react";
+import { useEffect } from "react";
 import { useGameEventProvider } from 'overwolf-hooks'
 
-const Alert:FC = ()=>{
+const Alert = () => {
+
   const [currentGame] = useRunningGame();
 
   useEffect(() => {
