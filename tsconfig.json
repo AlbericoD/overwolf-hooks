@@ -11,7 +11,7 @@
     ],
     "sourceMap": true,
     "allowJs": false,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "declaration": true,
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
@@ -28,7 +28,11 @@
     "strict": true,
     "resolveJsonModule": true,
     "isolatedModules": true,
-    "noEmit": true
+    "noEmit": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": [
+      "@overwolf/types"
+    ]
   },
   "include": [
     "src"
