@@ -27,7 +27,7 @@ import { useWindow } from 'overwolf-hooks'
 
 const Panel = () => {
 
-const [desktopWindow] = useWindow("desktop");
+const [desktopWindow] = useWindow("desktop", { displayLog: true });
 
 return (
     <div>
@@ -49,8 +49,8 @@ import { useDrag, useWindow } from 'overwolf-hooks'
 
 const Header = () => {
 
-const [desktopWindow] = useWindow("desktop");
-const { onDragStart, onMouseMove, setCurrentWindowID } = useDrag(null);
+const [desktopWindow] = useWindow("desktop", { displayLog: true });
+const { onDragStart, onMouseMove, setCurrentWindowID } = useDrag(null, { displayLog: true });
 
 const updateDragWindow = useCallback(() => {
   if (desktopWindow?.id) setCurrentWindowID(desktopWindow.id);
@@ -79,7 +79,7 @@ const Overlay = () => {
 const [{ event, info }, setGameFeatures] = useGameEventProvider<
     GameExample.Info, //change with your GAME INTERFACE <OPTIONAL>
     GameExample.Event //change with your GAME INTERFACE <OPTIONAL>
-  >();
+  >({ displayLog: true });
 
   useEffect(() => {
     console.info("event", event); // or use https://github.com/AlbericoD/overwolf-modern-react-boilerplate#-remote-redux-debug
@@ -102,7 +102,7 @@ import { useGameEventProvider } from 'overwolf-hooks'
 
 const Alert = () => {
 
-  const [currentGame] = useRunningGame();
+  const [currentGame] = useRunningGame({ displayLog: true });
 
   useEffect(() => {
     console.info("currentGame", currentGame);

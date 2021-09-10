@@ -8,7 +8,7 @@ export interface UseRunningGamePayload {
   isInFocus: boolean
 }
 
-export const useRunningGame = () => {
+export const useRunningGame = ({ displayLog }: { displayLog?: boolean }) => {
   const [game, setGame] = useState<UseRunningGamePayload | null>(null)
 
   function onGameInfoUpdated(payload: overwolf.games.GameInfoUpdatedEvent) {
@@ -20,16 +20,22 @@ export const useRunningGame = () => {
       isInFocus: payload?.focusChanged || false,
     }
     setGame(gameRunning)
-    console.log(
-      '[onGameInfoUpdatedPayload] ',
-      JSON.stringify(gameRunning, null, 2),
-    )
+
+    displayLog &&
+      console.info(
+        '[🐺 overwolf-hooks][🧰 useRunningGame][🔧 onGameInfoUpdatedPayload]',
+        JSON.stringify(gameRunning, null, 2),
+      )
   }
 
   function onGetRunningGameInfo(
     payload: overwolf.games.GetRunningGameInfoResult,
   ): void {
-    console.log('[onGetRunningGameInfo] ', JSON.stringify(payload, null, 2))
+    displayLog &&
+      console.info(
+        '[🐺 overwolf-hooks][🧰 useRunningGame][🔧 onGetRunningGameInfo]',
+        JSON.stringify(payload, null, 2),
+      )
     setGame((currentGame) => ({
       gameChanged: currentGame?.gameChanged || false,
       id: Math.round((payload?.id || 0) / 10),
