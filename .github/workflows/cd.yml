@@ -1,0 +1,32 @@
+name: Publish NPM Package
+
+on:
+  workflow_dispatch:
+  push:
+    branches: master
+    tags: v[1-9]+.[0-9]+.[0-9]+
+
+jobs:
+  test-build-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout
+        uses: actions/checkout@v2
+
+      - name: setup node ${{ matrix.node }}
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+          registry-url: 'https://registry.npmjs.org'
+        
+      - name: test and build
+        run: |
+          npm ci
+          npm run test
+          npm run build
+        
+      - name: publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
