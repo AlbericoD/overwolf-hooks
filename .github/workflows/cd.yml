@@ -19,10 +19,14 @@ jobs:
         with:
           node-version: 14
           registry-url: 'https://registry.npmjs.org'
-           
-      - name: test, build, publish
+        
+      - name: test and build
         run: |
           npm ci
           npm run test
           npm run build
-          npm publish
+        
+      - name: publish package
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
