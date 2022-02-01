@@ -14,7 +14,7 @@ export const useRunningGame = ({ displayLog }: { displayLog?: boolean }) => {
   function onGameInfoUpdated(payload: overwolf.games.GameInfoUpdatedEvent) {
     const gameRunning: UseRunningGamePayload = {
       gameRunning: payload?.gameInfo?.isRunning ?? false,
-      id: Math.round((payload?.gameInfo?.id || 0) / 10),
+      id: Math.floor((payload?.gameInfo?.id || 0) / 10),
       title: payload?.gameInfo?.title || '',
       gameChanged: payload?.gameChanged || false,
       isInFocus: payload?.focusChanged || false,
@@ -38,7 +38,7 @@ export const useRunningGame = ({ displayLog }: { displayLog?: boolean }) => {
       )
     setGame((currentGame) => ({
       gameChanged: currentGame?.gameChanged || false,
-      id: Math.round((payload?.id || 0) / 10),
+      id: Math.floor((payload?.id || 0) / 10),
       title: payload?.title || '',
       gameRunning: payload?.isRunning ?? false,
       isInFocus: payload?.isInFocus ?? false,
