@@ -98,7 +98,7 @@ return <p>Overlay Window</p>
 
 ```TSX
 import { useEffect } from "react";
-import { useGameEventProvider } from 'overwolf-hooks'
+import { useGameEventProvider, useRunningGame } from 'overwolf-hooks'
 
 const Alert = () => {
 
