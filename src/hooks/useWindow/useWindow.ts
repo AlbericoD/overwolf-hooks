@@ -44,6 +44,7 @@ export const useWindow = (name: string, { displayLog }: UseWindowArgs) => {
               stateEx: windowInfo.window_state_ex,
             }
         );
+        writeLog("windowStateChanged", {}, displayLog);
       }
     },
     [displayLog, name]

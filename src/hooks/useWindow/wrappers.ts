@@ -20,7 +20,7 @@ function standardWindowBehavior(
 }
 
 function writeLog(
-  behavior: Behavior,
+  behavior: Behavior | "windowStateChanged",
   windowInfo: Partial<overwolf.windows.WindowInfo>,
   displayLog?: boolean
 ) {
