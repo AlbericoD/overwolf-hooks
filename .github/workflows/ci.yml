@@ -3,7 +3,7 @@ name: Test Pull Requests
 on:
   workflow_dispatch:
   pull_request:
-    branches: [master]
+    branches: [main]
 
 jobs:
   test-and-build:
