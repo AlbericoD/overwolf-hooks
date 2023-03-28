@@ -23,8 +23,8 @@ jobs:
 
       - name: set git user
         run: |
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
+          git config user.name github-actions
+          git config user.email github-actions@github.com
 
       - name: update version
         run: npx standard-version
@@ -44,6 +44,8 @@ jobs:
           base: master
 
       - name: publish package
-        run: npm publish --access public
+        run: |
+          - git push --follow-tags origin main
+          - npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
