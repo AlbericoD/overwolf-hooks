@@ -25,9 +25,11 @@ npm install --save overwolf-hooks
 ```TSX
 import { useWindow } from 'overwolf-hooks'
 
+const options =  { displayLog: true }
+
 const Panel = () => {
 
-const [desktopWindow] = useWindow("desktop", { displayLog: true });
+const [desktopWindow] = useWindow("desktop", options);
 
 return (
     <div>
@@ -41,16 +43,43 @@ return (
 }
 ```
 
+## Force Window update
+
+If you need to force update the window state, you can use the refreshState function.
+
+
+```TSX
+import { useWindow } from 'overwolf-hooks'
+
+const options =  { displayLog: true }
+
+const Panel = () => {
+
+const [desktopWindow, refreshState] = useWindow("desktop", options);
+
+useEffect(() => {
+  //........ any other code
+  //force update
+  refreshState();
+}, [refreshState]);
+
+return <CustomComponent {...desktopWindow}/>
+}
+```
+
+
 2. **useDrag.tsx**
 
 ```TSX
 import { useEffect, useCallback } from "react";
 import { useDrag, useWindow } from 'overwolf-hooks'
 
+const options =  { displayLog: true }
+
 const Header = () => {
 
-const [desktopWindow] = useWindow("desktop", { displayLog: true });
-const { onDragStart, onMouseMove, setCurrentWindowID } = useDrag(null, { displayLog: true });
+const [desktopWindow] = useWindow("desktop", options);
+const { onDragStart, onMouseMove, setCurrentWindowID } = useDrag(null, options);
 
 const updateDragWindow = useCallback(() => {
   if (desktopWindow?.id) setCurrentWindowID(desktopWindow.id);
@@ -74,12 +103,14 @@ return (
 import { useEffect } from "react";
 import { useGameEventProvider } from 'overwolf-hooks'
 
+const options =  { displayLog: true }
+
 const Overlay = () => {
 
 const [{ event, info }, setGameFeatures] = useGameEventProvider<
     GameExample.Info, //change with your GAME INTERFACE <OPTIONAL>
     GameExample.Event //change with your GAME INTERFACE <OPTIONAL>
-  >({ displayLog: true });
+  >(options);
 
   useEffect(() => {
     console.info("event", event); // or use https://github.com/AlbericoD/overwolf-modern-react-boilerplate#-remote-redux-debug
@@ -100,9 +131,11 @@ return <p>Overlay Window</p>
 import { useEffect } from "react";
 import { useGameEventProvider, useRunningGame } from 'overwolf-hooks'
 
+const options =  { displayLog: true }
+
 const Alert = () => {
 
-  const [currentGame] = useRunningGame({ displayLog: true });
+  const [currentGame] = useRunningGame(options);
 
   useEffect(() => {
     console.info("currentGame", currentGame);
