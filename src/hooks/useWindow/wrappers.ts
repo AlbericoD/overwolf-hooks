@@ -9,7 +9,7 @@ function obtainWindow(name: string): Promise<overwolf.windows.WindowInfo> {
 
 function standardWindowBehavior(
   id: string,
-  behavior: "minimize" | "maximize" | "restore" | "close"
+  behavior: Behavior
 ): Promise<overwolf.windows.WindowIdResult> {
   return new Promise((resolve, reject) => {
     overwolf.windows[behavior](id, (result) => {
@@ -21,7 +21,7 @@ function standardWindowBehavior(
 
 function writeLog(
   behavior: Behavior | "windowStateChanged",
-  windowInfo: Partial<overwolf.windows.WindowInfo>,
+  windowInfo: Partial<overwolf.windows.WindowInfo | Record<string, any>>,
   displayLog?: boolean
 ) {
   if (displayLog) {
