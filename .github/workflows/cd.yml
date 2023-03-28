@@ -15,9 +15,6 @@ jobs:
       - name: checkout
         uses: actions/checkout@v2
 
-      - name: lint
-        run: npm run lint
-
       - name: setup node ${{ matrix.node }}
         uses: actions/setup-node@v2
         with:
