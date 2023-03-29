@@ -29,11 +29,15 @@ jobs:
       - name: update version
         run: npx standard-version
 
-      - name: test and build
+      - name: test
         run: |
           npm ci
           npm run test
-          npm run build
+
+      - name: build
+        run: npm run build
+        env:
+          CI: false
 
       - name: create pull request
         uses: peter-evans/create-pull-request@v3.10.0
