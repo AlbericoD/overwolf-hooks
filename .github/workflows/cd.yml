@@ -37,7 +37,10 @@ jobs:
         env:
           CI: false
 
-      - run: npx release-it --ci --npm.skipChecks
+      - run: |
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          npx release-it --ci --npm.skipChecks
+
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
