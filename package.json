@@ -1,6 +1,6 @@
 {
   "name": "overwolf-hooks",
-  "version": "3.0.4",
+  "version": "3.0.5",
   "description": "custom hooks to help use overwolf api with the new react hooks technology.",
   "author": "AlbericoD",
   "license": "MIT",
