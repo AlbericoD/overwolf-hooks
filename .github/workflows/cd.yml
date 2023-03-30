@@ -40,16 +40,24 @@ jobs:
           CI: false
 
       - name: create pull request
-        uses: peter-evans/create-pull-request@v3.10.0
+        uses: peter-evans/create-pull-request@v4
         with:
           commit-message: Update version and build artifacts
           title: Update version and build artifacts
+          body: |
+            This PR was created by the GitHub Action, **Update version and build artifacts**. 
+
+            The commit hash is _${{ github.sha }}_.
           branch: update-version-and-build
+          labels: |
+            automated
+            build
+            version
           base: main
 
       - name: publish package
         run: |
-          - git push --follow-tags origin main
-          - npm publish --access public
+          git push --follow-tags origin main
+          npm publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
