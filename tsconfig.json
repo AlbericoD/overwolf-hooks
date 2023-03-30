@@ -25,6 +25,7 @@
     "isolatedModules": true,
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
+    "ignoreDeprecations": "5.0",
     "types": ["@overwolf/types", "jest"]
   },
   "include": ["src"],

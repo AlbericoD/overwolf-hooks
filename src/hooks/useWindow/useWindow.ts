@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { obtainWindow, standardWindowBehavior, writeLog } from "./wrappers";
 
 const actions: Behavior[] = [

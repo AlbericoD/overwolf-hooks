@@ -2,8 +2,8 @@ const callback = (mockValue: any) => {
   callback(mockValue);
 };
 const commonGep = (mockValue: any) => ({
-  addListener: (cb) => cb(mockValue),
-  removeListener: (cb) => cb(mockValue),
+  addListener: (cb: any) => cb(mockValue),
+  removeListener: (cb: any) => cb(mockValue),
 });
 
 const commonListners = {
@@ -14,6 +14,7 @@ const games = {
   getRunningGameInfo: (
     cb: (payload: overwolf.games.GetRunningGameInfoResult) => void
   ) =>
+    //@ts-ignore
     cb({
       isInFocus: false,
       isRunning: true,
@@ -67,8 +68,10 @@ const games = {
   events: {
     onInfoUpdates2: commonGep({ info: "info-test" }),
     onNewEvents: commonGep({ events: ["event-test"] }),
-    setRequiredFeatures: (_, cb: (payload: { success: boolean }) => void) =>
-      cb({ success: true }),
+    setRequiredFeatures: (
+      _: any,
+      cb: (payload: { success: boolean }) => void
+    ) => cb({ success: true }),
   },
 };
 const owWindows = {
