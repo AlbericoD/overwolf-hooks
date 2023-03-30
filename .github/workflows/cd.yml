@@ -14,7 +14,8 @@ jobs:
     steps:
       - name: checkout
         uses: actions/checkout@v2
-
+        with:
+          fetch-depth: 0
       - name: setup node ${{ matrix.node }}
         uses: actions/setup-node@v2
         with:
@@ -23,11 +24,8 @@ jobs:
 
       - name: set git user
         run: |
-          git config user.name github-actions
-          git config user.email github-actions@github.com
-
-      - name: update version
-        run: npx standard-version
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
       - name: test
         run: |
@@ -39,25 +37,7 @@ jobs:
         env:
           CI: false
 
-      - name: create pull request
-        uses: peter-evans/create-pull-request@v4
-        with:
-          commit-message: Update version and build artifacts
-          title: Update version and build artifacts
-          body: |
-            This PR was created by the GitHub Action, **Update version and build artifacts**. 
-
-            The commit hash is _${{ github.sha }}_.
-          branch: update-version-and-build
-          labels: |
-            automated
-            build
-            version
-          base: main
-
-      - name: publish package
-        run: |
-          git push --follow-tags origin main
-          npm publish --access public
+      - run: npx release-it --ci
         env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

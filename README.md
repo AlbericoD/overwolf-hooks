@@ -51,11 +51,12 @@ If you need to force update the window state, you can use the refreshState funct
 ```TSX
 import { useWindow } from 'overwolf-hooks'
 
-const options =  { displayLog: true }
+const options =  { displayLog: true, listenToWindowStateChanges: true }
 
 const Panel = () => {
 
-const [desktopWindow, refreshState] = useWindow("desktop", options);
+//listenToWindowStateChanges is set to true to listen to window state changes, so you can read the window state from the desktopWindowStateChanged variable
+const [desktopWindow, desktopWindowStateChanged, refreshState] = useWindow("desktop", options);
 
 useEffect(() => {
   //........ any other code
