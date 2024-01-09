@@ -10,8 +10,18 @@ const actions: Behavior[] = [
   "bringToFront",
 ];
 
-export const useWindow = (
+type UseWindow = (
   name: string,
+  shouldDisplayLog?: boolean,
+  listenToWindowStateChanges?: boolean
+) => [
+  (overwolf.windows.WindowInfo & WindowBehavior) | undefined,
+  overwolf.windows.WindowStateChangedEvent | undefined,
+  () => Promise<void>
+];
+
+export const useWindow: UseWindow = (
+  name,
   shouldDisplayLog = false,
   listenToWindowStateChanges = false
 ) => {
