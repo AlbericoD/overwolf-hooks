@@ -1,4 +1,10 @@
-type Behavior = "minimize" | "maximize" | "restore" | "close" | "bringToFront";
+type Behavior =
+  | "minimize"
+  | "maximize"
+  | "restore"
+  | "close"
+  | "bringToFront"
+  | "hide";
 type UseWindowArgs = {
   displayLog?: boolean;
   listenToWindowStateChanges?: boolean;

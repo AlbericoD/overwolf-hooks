@@ -12,27 +12,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: setup node ${{ matrix.node }}
-        uses: actions/setup-node@v2
+      - name: 📂 Checkout
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Setup node
+        uses: actions/setup-node@v3
         with:
           node-version: "lts/*"
           registry-url: "https://registry.npmjs.org"
 
-      - name: set git user
+      - name: 🐈‍⬛ Configure github user
         run: |
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-      - name: test
+      - name: 🧪 Test
         run: |
           npm ci
           npm run test
 
-      - name: build
+      - name: 🏗️ Build
         run: npm run build
         env:
           CI: false

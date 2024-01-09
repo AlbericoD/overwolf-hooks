@@ -26,7 +26,7 @@
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "ignoreDeprecations": "5.0",
-    "types": ["@overwolf/types", "jest"]
+    "types": ["@overwolf/types", "jest", "node", "react"]
   },
   "include": ["src"],
   "exclude": ["node_modules", "build", "dist", "example", "rollup.config.js"]

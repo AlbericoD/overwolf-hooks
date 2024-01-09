@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { obtainWindow, standardWindowBehavior, writeLog } from "./wrappers";
+import { obtainWindow, standardWindowBehavior } from "./wrappers";
+import { error, log } from "../../lib/log";
 
 const actions: Behavior[] = [
   "minimize",
@@ -11,18 +12,37 @@ const actions: Behavior[] = [
 
 export const useWindow = (
   name: string,
-  { displayLog, listenToWindowStateChanges }: UseWindowArgs
+  shouldDisplayLog = false,
+  listenToWindowStateChanges = false
 ): [
-  WindowInfo | undefined,
+  (overwolf.windows.WindowInfo & WindowBehavior) | undefined,
   overwolf.windows.WindowStateChangedEvent | undefined,
   () => Promise<void>
 ] => {
-  const [owWindow, setOwWindow] = useState<WindowInfo>();
+  const [owWindow, setOwWindow] = useState<
+    overwolf.windows.WindowInfo & WindowBehavior
+  >();
   const [windowState, setWindowState] =
     useState<overwolf.windows.WindowStateChangedEvent>();
 
   const bindWindowBehavior = useCallback(async (): Promise<void> => {
     try {
+      if (process.env.NODE_ENV === "development") {
+        log(
+          `[DEV MODE]`,
+          "@overwolf-hooks/hooks/useWindow/wrappers.ts",
+          "standardWindowBehavior"
+        );
+        return;
+      }
+      if (!name || !name.length) {
+        log(
+          "name is required, maybe its first render?",
+          "@overwolf-hooks/hooks/useWindow.ts",
+          "bindWindowBehavior"
+        );
+      }
+
       const { id, ...windowInfo } = await obtainWindow(name);
       if (!id) {
         throw new Error(`Failed to obtain window ${name}`);
@@ -32,7 +52,13 @@ export const useWindow = (
       const updatedWindowInfo = actions.reduce((currentAction, action) => {
         currentAction[action] = async () => {
           const actionResult = await bindedWindow(action);
-          writeLog(action, windowInfo, displayLog);
+          if (shouldDisplayLog) {
+            log(
+              JSON.stringify(actionResult, null, 2),
+              "@overwolf-hooks/hooks/useWindow.ts",
+              `bindWindowBehavior -> ${action}`
+            );
+          }
           return actionResult;
         };
         return currentAction;
@@ -44,16 +70,15 @@ export const useWindow = (
         ...updatedWindowInfo,
         id,
       }));
-    } catch (error) {
-      throw new Error(
-        `[🐺 overwolf-hooks][🧰 useWindow][🔧 bindWindowBehavior] ${JSON.stringify(
-          error,
-          null,
-          2
-        )}}`
+    } catch (e) {
+      const errorMessage = error(
+        JSON.stringify(e, null, 2),
+        "@overwolf-hooks/hooks/useWindow.ts",
+        "bindWindowBehavior"
       );
+      throw new Error(errorMessage);
     }
-  }, [displayLog, name]);
+  }, [shouldDisplayLog, name]);
 
   useEffect(() => {
     const bindWindow = async () => {
@@ -68,7 +93,13 @@ export const useWindow = (
     ) => {
       if (windowInfo.window_name === name) {
         setWindowState(windowInfo);
-        writeLog("windowStateChanged", windowInfo, displayLog);
+      }
+      if (shouldDisplayLog) {
+        log(
+          JSON.stringify(windowInfo, null, 2),
+          "@overwolf-hooks/hooks/useWindow.ts",
+          "updateWindowStates"
+        );
       }
     };
 
@@ -81,7 +112,7 @@ export const useWindow = (
       if (listenToWindowStateChanges)
         overwolf.windows.onStateChanged.removeListener(updateWindowStates);
     };
-  }, [displayLog, listenToWindowStateChanges, name]);
+  }, [shouldDisplayLog, listenToWindowStateChanges, name]);
 
   return [owWindow, windowState, bindWindowBehavior];
 };

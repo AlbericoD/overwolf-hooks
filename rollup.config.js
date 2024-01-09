@@ -14,13 +14,13 @@ export default [
         file: pkg.main,
         format: "cjs",
         exports: "named",
-        sourcemap: true,
+        sourcemap: false,
       },
       {
         file: pkg.module,
         format: "es",
         exports: "named",
-        sourcemap: true,
+        sourcemap: false,
       },
     ],
     plugins: [
@@ -33,7 +33,7 @@ export default [
     ],
   },
   {
-    input: "dist/esm/index.d.ts",
+    input: "dist/esm/build/index.d.ts",
     output: [{ file: "dist/index.d.ts", format: "esm" }],
     plugins: [dts()],
   },

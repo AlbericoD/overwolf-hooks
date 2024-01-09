@@ -19,17 +19,4 @@ function standardWindowBehavior(
   });
 }
 
-function writeLog(
-  behavior: Behavior | "windowStateChanged",
-  windowInfo: Partial<overwolf.windows.WindowInfo | Record<string, any>>,
-  displayLog?: boolean
-) {
-  if (displayLog) {
-    console.info(
-      `[🐺 overwolf-hooks][🧰 useWindow][🔧 ${behavior}]`,
-      JSON.stringify(windowInfo, null, 2)
-    );
-  }
-}
-
-export { standardWindowBehavior, obtainWindow, writeLog };
+export { standardWindowBehavior, obtainWindow };

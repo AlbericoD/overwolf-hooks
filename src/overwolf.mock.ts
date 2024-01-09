@@ -70,8 +70,12 @@ const games = {
     onNewEvents: commonGep({ events: ["event-test"] }),
     setRequiredFeatures: (
       _: any,
-      cb: (payload: { success: boolean }) => void
-    ) => cb({ success: true }),
+      cb: (payload: {
+        success: boolean;
+        supportedFeatures: Array<string>;
+      }) => void
+    ) => cb({ success: true, supportedFeatures: ["kill", "death"] }),
+    getInfo: (cb: (payload: any) => void) => cb({ info: "info-test" }),
   },
 };
 const owWindows = {

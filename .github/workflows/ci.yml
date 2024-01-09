@@ -13,13 +13,13 @@ jobs:
         node: ["lts/*"]
 
     steps:
-      - name: checkout
-        uses: actions/checkout@v2
+      - name: 📂 Checkout
+        uses: actions/checkout@v3
 
-      - name: setup node ${{ matrix.node }}
-        uses: actions/setup-node@v2
+      - name: ⚙️ Setup node
+        uses: actions/setup-node@v3
         with:
-          node-version: ${{ matrix.node }}
+          node-version: "lts/*"
 
       - name: test
         run: |

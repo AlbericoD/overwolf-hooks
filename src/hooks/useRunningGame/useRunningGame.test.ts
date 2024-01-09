@@ -3,9 +3,9 @@ import { renderHook } from "@testing-library/react";
 
 describe("useRunningGame values", () => {
   it("should return runningGame object", () => {
-    const { result } = renderHook(() => useRunningGame({ displayLog: true }));
+    const { result } = renderHook(() => useRunningGame(true));
 
-    const [game] = result.current;
+    const game = result.current;
     expect(game).not.toBeUndefined();
     expect(game).not.toBeNull();
     expect(game?.id).toBe(1000);
