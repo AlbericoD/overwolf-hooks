@@ -14,11 +14,7 @@ export const useWindow = (
   name: string,
   shouldDisplayLog = false,
   listenToWindowStateChanges = false
-): [
-  (overwolf.windows.WindowInfo & WindowBehavior) | undefined,
-  overwolf.windows.WindowStateChangedEvent | undefined,
-  () => Promise<void>
-] => {
+) => {
   const [owWindow, setOwWindow] = useState<
     overwolf.windows.WindowInfo & WindowBehavior
   >();
@@ -43,15 +39,10 @@ export const useWindow = (
         );
       }
 
-      const { id, ...windowInfo } = await obtainWindow(name);
-      if (!id) {
-        throw new Error(`Failed to obtain window ${name}`);
-      }
-      const bindedWindow = standardWindowBehavior.bind(null, id);
-
       const updatedWindowInfo = actions.reduce((currentAction, action) => {
         currentAction[action] = async () => {
-          const actionResult = await bindedWindow(action);
+          await obtainWindow(name);
+          const actionResult = await standardWindowBehavior(name, action);
           if (shouldDisplayLog) {
             log(
               JSON.stringify(actionResult, null, 2),
@@ -64,11 +55,15 @@ export const useWindow = (
         return currentAction;
       }, {} as WindowBehavior);
 
+      const windowInfo = await obtainWindow(name);
+      if (!windowInfo) {
+        throw new Error(`Failed to obtain window ${name}`);
+      }
+
       setOwWindow((prev) => ({
         ...(prev || {}),
         ...windowInfo,
         ...updatedWindowInfo,
-        id,
       }));
     } catch (e) {
       const errorMessage = error(

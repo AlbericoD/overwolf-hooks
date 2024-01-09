@@ -11,8 +11,7 @@ function standardWindowBehavior(
   id: string,
   behavior: Behavior
 ): Promise<overwolf.windows.WindowIdResult> {
-  return new Promise(async (resolve, reject) => {
-    await obtainWindow(id);
+  return new Promise((resolve, reject) => {
     overwolf.windows[behavior](id, (result) => {
       if (result.success) resolve(result);
       else reject(result);
