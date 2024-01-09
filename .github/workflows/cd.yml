@@ -35,7 +35,7 @@ jobs:
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
       - name: 📦 Install dependencies
-        run: ci
+        run: npm ci
 
       - name: 🚓 Audit dependencies #Verify the integrity of provenance attestations and registry signatures for installed dependencies
         run: npm audit signatures
