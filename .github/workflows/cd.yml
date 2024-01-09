@@ -44,9 +44,10 @@ jobs:
         run: npm run test
 
       - name: 🏗️ Build
-        run: |
+        run:
           npm run build
-          cp package.json README.md LICENSE CONTRIBUTING.md CODE_OF_CONDUCT.md dist
+
+          # cp package.json README.md LICENSE CONTRIBUTING.md CODE_OF_CONDUCT.md dist
 
       - name: 📰 Semantic Release
         env:
