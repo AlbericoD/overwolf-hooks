@@ -8,12 +8,20 @@ on:
       - v[1-9]+.[0-9]+.[0-9]+
 
 jobs:
-  test-build-publish:
+  release:
+    name: 📦 Release
     runs-on: ubuntu-latest
+    permissions:
+      contents: write # to be able to publish a GitHub release
+      issues: write # to be able to comment on released issues
+      pull-requests: write # to be able to comment on released pull requests
+      id-token: write # to enable use of OIDC for npm provenance
 
     steps:
       - name: 📂 Checkout
         uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
 
       - name: ⚙️ Setup node
         uses: actions/setup-node@v3
@@ -26,25 +34,20 @@ jobs:
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
 
-      - name: 📰 Semantic Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+      - name: 📦 Install dependencies
+        run: ci
+
+      - name: 🚓 Audit dependencies #Verify the integrity of provenance attestations and registry signatures for installed dependencies
+        run: npm audit signatures
 
       - name: 🧪 Test
-        run: |
-          npm ci
-          npm run test
+        run: npm run test
 
       - name: 🏗️ Build
         run: npm run build
-        env:
-          CI: false
 
-      - run: |
-          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
-          npx release-it --ci --npm.skipChecks
-
+      - name: 📰 Semantic Release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: npx semantic-release
