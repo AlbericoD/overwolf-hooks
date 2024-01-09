@@ -10,12 +10,10 @@ Custom hooks to help use overwolf api with the new react hooks technology.
 ## Install
 
 ```bash
-npm install --save overwolf-hooks
-pnpm install --save overwolf-hooks
-yarn add overwolf-hooks
+$ npm install --save overwolf-hooks
+$ pnpm install --save overwolf-hooks
+$ yarn add overwolf-hooks
 ```
-
-````
 
 ## How to use
 
@@ -46,37 +44,39 @@ return (
     </div>
   )
 }
-
+```
 
 ## Force Window update
 
 If you need to force update the window state, you can use the refreshState function.
 
 ```tsx
-import { useWindow } from 'overwolf-hooks'
+import { useWindow } from "overwolf-hooks";
 
 const shouldDisplayLog = true;
 const shouldListenToWindowStateChanges = true;
 
-const Panel = () => {
-
 //listenToWindowStateChanges is set to true to listen to window state changes, so you can read the window state from the desktopWindowStateChanged variable
-const [desktopWindow, desktopWindowStateChanged, refreshState] = useWindow("desktop", shouldDisplayLog, shouldListenToWindowStateChanges);
+const [desktopWindow, desktopWindowStateChanged, refreshState] = useWindow(
+  "desktop",
+  shouldDisplayLog,
+  shouldListenToWindowStateChanges
+);
 
-useEffect(() => {
-  //........ any other code
-  //force update/rebind the window object
-  refreshState();
-}, [refreshState]);
+const Panel = () => {
+  useEffect(() => {
+    //........ any other code
+    //force update/rebind the window object
+    refreshState();
+  }, [refreshState]);
 
-useEffect(() => {
-  //........ any other code
-  console.info("desktopWindowStateChanged", desktopWindowStateChanged);
-}, [desktopWindowStateChanged]);
+  useEffect(() => {
+    //........ any other code
+    console.info("desktopWindowStateChanged", desktopWindowStateChanged);
+  }, [desktopWindowStateChanged]);
 
-return <CustomComponent {...desktopWindow}/>
-}
-
+  return <CustomComponent {...desktopWindow} />;
+};
 ```
 
 2. **useDrag.tsx**
@@ -112,10 +112,11 @@ return (
 
 ```TSX
 const REQUIRED_FEATURES = ["game_info", "match_info", "game_events"];
-const RETRY_TIMES = 5;
+const RETRY_TIMES = 10;
 const DISPLAY_OVERWOLF_HOOKS_LOGS = true;
 
 const BackgroundWindow = () => {
+  const [ingame] = useWindow("ingame", DISPLAY_OVERWOLF_HOOKS_LOGS);
   const { started, start, stop } = useGameEventProvider(
     {
       onInfoUpdates: (info) => { console.log("info", info); },
@@ -131,7 +132,9 @@ const BackgroundWindow = () => {
     return () => stop();
   }, [start, stop]);
 
+  return null;
 }
+
 ```
 
 4. **useRunningGame.tsx**
@@ -158,5 +161,3 @@ return <p>Alert Window</p>
 ## License
 
 MIT © [AlbericoD](https://github.com/AlbericoD)
-
-````
