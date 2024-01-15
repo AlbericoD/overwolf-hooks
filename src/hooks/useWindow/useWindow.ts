@@ -47,6 +47,7 @@ export const useWindow: UseWindow = (
           "@overwolf-hooks/hooks/useWindow.ts",
           "bindWindowBehavior"
         );
+        return;
       }
 
       const updatedWindowInfo = actions.reduce((currentAction, action) => {
